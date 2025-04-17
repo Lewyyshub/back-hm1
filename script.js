@@ -85,7 +85,13 @@ console.log(names);
 
 const onlyfirstname = characters.map((char) => char.name.split(" ")[0]);
 console.log(onlyfirstname);
-// 3??
+
+const eyeColorCount = characters.reduce((acc, char) => {
+  const color = char.eye_color;
+  acc[color] = (acc[color] || 0) + 1;
+  return acc;
+}, {});
+console.log(eyeColorCount);
 
 // 6)
 const movies = [
@@ -98,12 +104,12 @@ const movies = [
 //   * ამოიღეთ მხოლოდ სახელები
 //   * დაალაგეთ ეს სახელები ანბანის მიხედვით
 
-const ratings = movies.filter((rat) => rat.rating > 8);
-console.log(ratings);
+const sortedHighRatedMovieTitles = movies
+  .filter((movie) => movie.rating > 8)
+  .map((movie) => movie.title)
+  .sort();
 
-const movienames = movies.map((namez) => namez.title);
-console.log(movienames);
-// 3??
+console.log(sortedHighRatedMovieTitles);
 
 // 7)
 const students = [
@@ -123,3 +129,24 @@ const updatedStudents = students
   .filter((student) => student.average > 85);
 
 console.log(updatedStudents);
+
+// 8
+const employees = {
+  alice: { department: "HR", active: true },
+  bob: { department: "Engineering", active: false },
+  charlie: { department: "Engineering", active: true },
+};
+// * გადაუარეთ თითოეულ ობიექტს Object.entries მეთოდით, დაითვალეთ რამდენი აქტიური იუზერია თითოეულ დეპარტამენტში და დააბრუნეთ შემდეგი ობიექტი:
+
+const activeCountByDepartment = Object.entries(employees).reduce(
+  (acc, [_, employee]) => {
+    if (employee.active) {
+      const dept = employee.department;
+      acc[dept] = (acc[dept] || 0) + 1;
+    }
+    return acc;
+  },
+  {}
+);
+
+console.log(activeCountByDepartment);
